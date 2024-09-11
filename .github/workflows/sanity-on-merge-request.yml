@@ -21,6 +21,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Start JSON Server
+        run: npm run server
+
       - name: Run Postman Tests
         run: |
           npm run happy-path-tests
