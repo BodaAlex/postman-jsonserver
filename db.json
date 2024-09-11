@@ -6,6 +6,7 @@
       "color": "blue",
       "engineOn": true,
       "windowsOpen": false,
+      "locked": true,
       "lastUsage": "09/11/2024 13:14",
       "battery": "64"
     },
@@ -15,6 +16,7 @@
       "color": "red",
       "engineOn": true,
       "windowsOpen": false,
+      "locked": true,
       "lastUsage": "08/08/2024 22:04",
       "battery": "96"
     },
@@ -24,19 +26,11 @@
       "color": "grey",
       "engineOn": false,
       "windowsOpen": false,
+      "locked": true,
       "lastUsage": "09/01/2024 08:22",
       "battery": "22"
-    },
-    {
-      "id": "df10",
-      "brand": "Volvo",
-      "color": "blue",
-      "engineOn": false,
-      "windowsOpen": false,
-      "lastUsage": "09/01/2024 08:22",
-      "battery": "100",
-      "smthg": "new"
     }
   ],
-  "authToken": "12345"
+  "authToken": "12345",
+  "user": []
 }
