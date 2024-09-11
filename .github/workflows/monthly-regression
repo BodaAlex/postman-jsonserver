@@ -1,0 +1,44 @@
+name: Monthly Scheduled Workflow
+
+on:
+  schedule:
+    - cron: '0 23 26 * *' 
+  workflow_dispatch:
+
+jobs:
+  run-monthly-tasks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.6'
+      
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Start JSON Server
+        run: | 
+            npx json-server --watch db.json --port 3000 > server.log 2>&1 &
+            echo "Started JSON Server, checking logs..."
+            tail -f server.log & 
+            echo "Waiting for JSON Server to start..."
+            for i in {1..30}; do
+                if curl -s http://localhost:3000/vehicles > /dev/null; then
+                    echo "JSON Server is up and running!"
+                    break
+                else
+                    echo "Attempt $i: JSON Server not ready yet..."
+                    sleep 5
+                fi
+            done
+
+      - name: Run Postman Tests
+        run: |
+          npm run happy-path-tests
+          npm run negative-path-tests
+          npm run e2e-tests
