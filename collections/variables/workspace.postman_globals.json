@@ -1,0 +1,26 @@
+{
+	"id": "2f75f5cb-db47-46dc-84d1-a843823e46c3",
+	"values": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:3000",
+			"enabled": true
+		},
+		{
+			"key": "vehicleID",
+			"value": "0c09",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "invalidVehicleID",
+			"value": "idnonexistent",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2024-09-11T17:24:47.614Z",
+	"_postman_exported_using": "Postman/11.11.1"
+}
