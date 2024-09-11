@@ -1,0 +1,27 @@
+name: Sanity checks
+
+on:
+  push:
+    branches:
+      - '*' 
+
+jobs:
+  run-postman-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.6'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Postman Tests
+        run: |
+          npm run happy-path-tests
+          npm run negative-path-tests
