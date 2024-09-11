@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "b524bc74-522d-4c41-b3ec-519758a4ab40",
+		"name": "01 - Happy path",
+		"description": "This collection validates the response and schema of each request in isolation, when sending **valid** data.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10016071"
+	},
+	"item": [
+		{
+			"name": "list all vehicles",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/vehicles",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"vehicles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vehicle details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"// To add schema test\r",
+							"let schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"id\": {\"type\": \"string\"},\r",
+							"        \"brand\": {\"type\": \"string\"},\r",
+							"        \"color\": {\"type\": \"string\"},\r",
+							"        \"engineOn\": {\"type\": \"boolean\"},\r",
+							"        \"windowsOpen\": {\"type\": \"boolean\"},\r",
+							"        \"locked\": {\"type\": \"boolean\"},\r",
+							"        \"lastUsage\": {\"type\": \"string\"},\r",
+							"        \"battery\": {\"type\": \"string\"},\r",
+							"    },\r",
+							"    \"required\": [\"id\", \"brand\",\"color\", \"engineOn\", \"locked\", \"windowsOpen\", \"lastUsage\", \"battery\"]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Ensure the test calls fixture content\r",
+							"pm.globals.set(\"vehicleID\", \"1\")"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/vehicles/{{vehicleID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"vehicles",
+						"{{vehicleID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add vehicle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"let response = pm.response.json();\r",
+							"pm.globals.set(\"vehicleID\", response.id);\r",
+							"\r",
+							"// To add schema test\r",
+							"let schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"id\": {\"type\": \"string\"},\r",
+							"        \"brand\": {\"type\": \"string\"},\r",
+							"        \"color\": {\"type\": \"string\"},\r",
+							"        \"engineOn\": {\"type\": \"boolean\"},\r",
+							"        \"windowsOpen\": {\"type\": \"boolean\"},\r",
+							"        \"locked\": {\"type\": \"boolean\"},\r",
+							"        \"lastUsage\": {\"type\": \"string\"},\r",
+							"        \"battery\": {\"type\": \"string\"},\r",
+							"    },\r",
+							"    \"required\": [\"id\", \"brand\",\"color\", \"engineOn\", \"locked\", \"windowsOpen\", \"lastUsage\", \"battery\"]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"brand\": \"happy path vehicle\",\r\n    \"color\": \"blue\",\r\n    \"engineOn\": true,\r\n    \"windowsOpen\": false,\r\n    \"locked\": true,\r\n    \"lastUsage\": \"09/11/2024 13:14\",\r\n    \"battery\": \"64\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/vehicles",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"vehicles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update vehicle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// To add schema test\r",
+							"let schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"id\": {\"type\": \"string\"},\r",
+							"        \"brand\": {\"type\": \"string\"},\r",
+							"        \"color\": {\"type\": \"string\"},\r",
+							"        \"engineOn\": {\"type\": \"boolean\"},\r",
+							"        \"windowsOpen\": {\"type\": \"boolean\"},\r",
+							"        \"locked\": {\"type\": \"boolean\"},\r",
+							"        \"lastUsage\": {\"type\": \"string\"},\r",
+							"        \"battery\": {\"type\": \"string\"},\r",
+							"    },\r",
+							"    \"required\": [\"id\", \"brand\",\"color\", \"engineOn\", \"locked\", \"windowsOpen\", \"lastUsage\", \"battery\"]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"brand\": \"happy path updated vehicle\",\r\n    \"color\": \"blue\",\r\n    \"engineOn\": true,\r\n    \"windowsOpen\": false,\r\n    \"locked\": true,\r\n    \"lastUsage\": \"09/11/2024 13:14\",\r\n    \"battery\": \"64\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/vehicles/{{vehicleID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"vehicles",
+						"{{vehicleID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update vehicle attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// To add schema test\r",
+							"let schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"id\": {\"type\": \"string\"},\r",
+							"        \"brand\": {\"type\": \"string\"},\r",
+							"        \"color\": {\"type\": \"string\"},\r",
+							"        \"engineOn\": {\"type\": \"boolean\"},\r",
+							"        \"windowsOpen\": {\"type\": \"boolean\"},\r",
+							"        \"locked\": {\"type\": \"boolean\"},\r",
+							"        \"lastUsage\": {\"type\": \"string\"},\r",
+							"        \"battery\": {\"type\": \"string\"},\r",
+							"    },\r",
+							"    \"required\": [\"id\", \"brand\",\"color\", \"engineOn\", \"locked\", \"windowsOpen\", \"lastUsage\", \"battery\"]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"engineOn\": true\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/vehicles/{{vehicleID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"vehicles",
+						"{{vehicleID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete vehicle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// To add schema test\r",
+							"let schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"id\": {\"type\": \"string\"},\r",
+							"        \"brand\": {\"type\": \"string\"},\r",
+							"        \"color\": {\"type\": \"string\"},\r",
+							"        \"engineOn\": {\"type\": \"boolean\"},\r",
+							"        \"windowsOpen\": {\"type\": \"boolean\"},\r",
+							"        \"locked\": {\"type\": \"boolean\"},\r",
+							"        \"lastUsage\": {\"type\": \"string\"},\r",
+							"        \"battery\": {\"type\": \"string\"},\r",
+							"    },\r",
+							"    \"required\": [\"id\", \"brand\",\"color\", \"engineOn\", \"locked\", \"windowsOpen\", \"lastUsage\", \"battery\"]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Schema is valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseURL}}/vehicles/{{vehicleID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"vehicles",
+						"{{vehicleID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
