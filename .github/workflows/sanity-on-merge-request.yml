@@ -22,7 +22,20 @@ jobs:
         run: npm install
 
       - name: Start JSON Server
-        run: npm run server
+        run: | 
+            npx json-server --watch db.json --port 3000 > server.log 2>&1 &
+            echo "Started JSON Server, checking logs..."
+            tail -f server.log & 
+            echo "Waiting for JSON Server to start..."
+            for i in {1..30}; do
+                if curl -s http://localhost:3000/vehicles > /dev/null; then
+                    echo "JSON Server is up and running!"
+                    break
+                else
+                    echo "Attempt $i: JSON Server not ready yet..."
+                    sleep 5
+                fi
+            done
 
       - name: Run Postman Tests
         run: |
