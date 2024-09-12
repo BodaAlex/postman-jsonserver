@@ -6,15 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "json-server db.json",
-    "happy-path-tests": "npx newman run collections/happy-path.postman_collection.json --globals collections/variables/workspace.postman_globals.json",
-    "negative-path-tests": "npx newman run collections/negative-path.postman_collection.json --globals collections/variables/workspace.postman_globals.json",
-    "e2e-tests": "npx newman run collections/e2e.postman_collection.json --globals collections/variables/workspace.postman_globals.json"
+    "happy-path-tests": "npx newman run collections/happy-path.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporter htmlextra",
+    "negative-path-tests": "npx newman run collections/negative-path.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporter htmlextra",
+    "e2e-tests": "npx newman run collections/e2e.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporter htmlextra"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "json-server": "^1.0.0-beta.2",
-    "newman": "^6.2.1"
+    "newman": "^6.2.0",
+    "newman-reporter-htmlextra": "^1.23.1"
   }
 }
