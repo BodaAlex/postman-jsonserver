@@ -51,7 +51,7 @@ jobs:
       - name: Send email with report - MailGun
         run: |
           curl -s --user "api:${{ secrets.MAILGUN_API_KEY }}" \
-          https://api.mailgun.net/v4/${{ secrets.MAILGUN_DOMAIN }}/messages \
+          https://api.mailgun.net/v3/${{ secrets.MAILGUN_DOMAIN }}/messages \
           -F from="${{ secrets.MAILGUN_USER_EMAIL }}" \
           -F to="${{ secrets.MAILGUN_USER_EMAIL }}" \
           -F subject="Test results + report" \
