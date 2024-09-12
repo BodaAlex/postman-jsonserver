@@ -15,7 +15,7 @@ jobs:
         run: |
           curl -s --user "api:${{ secrets.MAILGUN_API_KEY }}" \
             https://api.mailgun.net/v3/${{ secrets.MAILGUN_DOMAIN }}/messages \
-            -F from="${{ secrets.MAILGUN_USER_EMAIL }}" \
+            -F from="example@mail.com" \
             -F to="${{ secrets.MAILGUN_USER_EMAIL }}" \
             -F subject="Test Email from GitHub Actions" \
             -F text="This is a test email sent from a GitHub Actions workflow."
