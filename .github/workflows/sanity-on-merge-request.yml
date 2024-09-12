@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - '*' 
+  workflow_dispatch:
 
 jobs:
   run-postman-tests:
@@ -41,3 +42,9 @@ jobs:
         run: |
           npm run happy-path-tests
           npm run negative-path-tests
+# Send email to mailer lite
+      - name: Send email with report
+        run: |
+          node scripts/send-email.js
+        env:
+          MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
