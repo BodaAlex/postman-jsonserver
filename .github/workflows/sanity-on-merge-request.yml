@@ -50,12 +50,12 @@ jobs:
       #     MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
       - name: Send email with report - MailGun
         run: |
-          curl -s --user "${{ secrets.MAILGUN_API_KEY }}" 
-          "https://api.mailgun.net/v3/${{secrets.MAILGUN_DOMAIN}}/messages"
-          -F from=${{secrets.MAILGUN_USER_EMAIL}}
-          -F to=${{secrets.MAILGUN_USER_EMAIL}}
-          -F subject='Test results + report'
-          -F text='Testing some Mailgun awesomeness!'
-          -F attachment='@newman/report.html'
-        env:
-          MAILGUN_API_KEY: 
+          curl -s --user "api:${{ secrets.MAILGUN_API_KEY }}" \
+          https://api.mailgun.net/v3/${{ secrets.MAILGUN_DOMAIN }}/messages \
+          -F from="${{ secrets.MAILGUN_USER_EMAIL }}" \
+          -F to="${{ secrets.MAILGUN_USER_EMAIL }}" \
+          -F subject="Test results + report" \
+          -F text="Please find the test report attached." \
+          -F attachment="@newman/report.html"
+
+          
