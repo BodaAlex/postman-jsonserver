@@ -64,6 +64,6 @@ jobs:
             -F to="${{ secrets.MAILGUN_USER_EMAIL }}" \
             -F subject="Test results + report" \
             -F text="Please find the test report attached." \
-            -F attachment="@newman/*"
+            -F attachment="@newman/report.html"
 
           
