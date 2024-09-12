@@ -7,7 +7,8 @@ const path = require('path');
 const apiKey = process.env.MAILERLITE_API_KEY;;
 
 // Load the HTML report
-const reportPath = path.join(__dirname, 'report.html');
+const reportPath = path.join(__dirname, '..', 'newman', 'report.html');
+console.log("Report path is: ", reportPath)
 const reportHtml = fs.readFileSync(reportPath, 'utf-8');
 
 // Email configuration
