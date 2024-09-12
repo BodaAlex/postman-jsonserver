@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "json-server db.json",
-    "happy-path-tests": "npx newman run collections/happy-path.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporter htmlextra",
-    "negative-path-tests": "npx newman run collections/negative-path.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporter htmlextra",
-    "e2e-tests": "npx newman run collections/e2e.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporter htmlextra"
+    "happy-path-tests": "npx newman run collections/happy-path.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporters htmlextra",
+    "negative-path-tests": "npx newman run collections/negative-path.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporters htmlextra",
+    "e2e-tests": "npx newman run collections/e2e.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporters htmlextra"
   },
   "keywords": [],
   "author": "",
