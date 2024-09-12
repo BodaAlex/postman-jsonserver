@@ -1,0 +1,21 @@
+name: Send Test Email
+
+on:
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Send Test Email
+        run: |
+          curl -s --user "api:${{ secrets.MAILGUN_API_KEY }}" \
+            https://api.mailgun.net/v3/${{ secrets.MAILGUN_DOMAIN }}/messages \
+            -F from="alexandruflorinboda@gmail.com" \
+            -F to="${{ secrets.MAILGUN_USER_EMAIL }}" \
+            -F subject="Test Email from GitHub Actions" \
+            -F text="This is a test email sent from a GitHub Actions workflow."
