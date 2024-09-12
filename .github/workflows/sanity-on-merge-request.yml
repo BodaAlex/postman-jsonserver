@@ -40,8 +40,13 @@ jobs:
 
       - name: Run Postman Tests
         run: |
-          npm run happy-path-tests
-          npm run negative-path-tests
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          REPORT_FILE="report_${TIMESTAMP}.html"
+
+          newman run collections/happy-path.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporters htmlextra --reporter-htmlextra-export newman/${REPORT_FILE}
+          newman run collections/negative-path.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporters htmlextra --reporter-htmlextra-export newman/${REPORT_FILE}
+          
+          ls newman
 
       - name: Send email with report - MailGun
         run: |
