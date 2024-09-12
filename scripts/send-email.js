@@ -28,7 +28,7 @@ const data = {
 };
 
 // Send the request to MailerLite API
-axios.post('https://api.mailerlite.com/v2/email', data, {
+axios.post('https://connect.mailerlite.com/api', data, {
   headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${apiKey}`
