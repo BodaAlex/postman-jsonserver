@@ -42,12 +42,7 @@ jobs:
         run: |
           npm run happy-path-tests
           npm run negative-path-tests
-# Send email to mailer lite
-      # - name: Send email with report
-      #   run: |
-      #     node scripts/send-email.js
-      #   env:
-      #     MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
+
       - name: Send email with report - MailGun
         run: |
           curl -s --user "api:${{ secrets.MAILGUN_API_KEY }}" \
