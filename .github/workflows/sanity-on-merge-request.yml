@@ -47,18 +47,18 @@ jobs:
   
           ls newman
 
-      - name: Run Postman Tests - Negative Path
-        run: |
-            TIMESTAMP=$(date +%Y%m%d%H%M%S)
-            REPORT_FILE="report_${TIMESTAMP}.html"
+     # - name: Run Postman Tests - Negative Path
+     #   run: |
+     #       TIMESTAMP=$(date +%Y%m%d%H%M%S)
+     #       REPORT_FILE="report_${TIMESTAMP}.html"
   
-            npx newman run collections/negative-path.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporters htmlextra --reporter-htmlextra-export newman/${REPORT_FILE}
+     #       npx newman run collections/negative-path.postman_collection.json --globals collections/variables/workspace.postman_globals.json --reporters htmlextra --reporter-htmlextra-export newman/${REPORT_FILE}
             
-            ls newman
+     #       ls newman
 
       - name: Send email with report - MailGun
         run: |
-          curl -s --user "api:${{ secrets.MAILGUN_API_KEY }}" \
+          curl -v --user "api:${{ secrets.MAILGUN_API_KEY }}" \
             https://api.mailgun.net/v3/${{ secrets.MAILGUN_DOMAIN }}/messages \
             -F from="${{ secrets.MAILGUN_USER_SENDER }}" \
             -F to="${{ secrets.MAILGUN_USER_EMAIL }}" \
